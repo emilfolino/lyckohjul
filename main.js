@@ -12,7 +12,7 @@ function wheelOfFortune(selector) {
       animation.cancel(); // Reset the animation if it already exists
     }
 
-    const randomAdditionalDegrees = Math.random() * 360 + 1800;
+    const randomAdditionalDegrees = Math.random() * 360 + 3600;
     const newEndDegree = previousEndDegree + randomAdditionalDegrees;
 
     animation = wheel.animate([
@@ -54,13 +54,13 @@ function wheelOfFortune(selector) {
       angle = (angle < 0) ? angle +=360 : angle;
       console.log(angle)
 
-      const additionalDegrees = 90 + Math.random() * 50;
+      const additionalDegrees = 90 + Math.random() * 400;
       const newEndDegree = angle + additionalDegrees;
       animation = wheel.animate([
         { transform: `rotate(${angle}deg)` },
         { transform: `rotate(${newEndDegree}deg)` }
       ], {
-        duration: 2000,
+        duration: 2000 + 2000 * Math.random(),
         direction: 'normal',
         easing: 'cubic-bezier(0.1, 0.7, 0.5, 1)',
         fill: 'forwards',
