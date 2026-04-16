@@ -32,9 +32,7 @@ function wheelOfFortune(selector) {
   document.addEventListener("keyup", (event) => {
     event.preventDefault()
 
-    if (event.key === "s") {
-      console.log("STOP")
-
+    if (event.key === "0") {
       const wheelStyle = window.getComputedStyle(wheel, null)
 
       const matrix = wheelStyle.getPropertyValue('-webkit-transform') || 
