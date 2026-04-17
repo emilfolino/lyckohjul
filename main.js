@@ -7,6 +7,8 @@ function wheelOfFortune(selector) {
   let animation;
   let previousEndDegree = 0;
 
+  let okToStop = false
+
   spin.addEventListener('click', () => {
     if (animation) {
       animation.cancel(); // Reset the animation if it already exists
@@ -27,12 +29,14 @@ function wheelOfFortune(selector) {
     });
 
     previousEndDegree = newEndDegree;
+
+    okToStop = true
   });
 
   document.addEventListener("keyup", (event) => {
     event.preventDefault()
 
-    if (event.key === "0") {
+    if (event.key === "0" && okToStop) {
       const wheelStyle = window.getComputedStyle(wheel, null)
 
       const matrix = wheelStyle.getPropertyValue('-webkit-transform') || 
@@ -52,10 +56,17 @@ function wheelOfFortune(selector) {
       } 
 
       angle = (angle < 0) ? angle +=360 : angle;
-      console.log(angle)
 
       const additionalDegrees = 90 + Math.random() * 400;
       const newEndDegree = angle + additionalDegrees;
+
+      if (newEndDegree % 12 === 0 ||newEndDegree % 13 === 0 || 
+          newEndDegree % 14 === 0 || newEndDegree % 15 === 0 || 
+          newEndDegree % 16 === 0 || newEndDegree % 17 === 0 || newEndDegree % 18 === 0) {
+            newEndDegree += 10
+          }
+
+
       animation = wheel.animate([
         { transform: `rotate(${angle}deg)` },
         { transform: `rotate(${newEndDegree}deg)` }
@@ -66,6 +77,8 @@ function wheelOfFortune(selector) {
         fill: 'forwards',
         iterations: 1
       });
+
+      okToStop = false
     }
   })
 }
